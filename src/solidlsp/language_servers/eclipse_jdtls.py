@@ -305,6 +305,19 @@ class EclipseJDTLS(SolidLanguageServer):
         assert os.path.exists(intellicode_jar_path)
         assert os.path.exists(intellisense_members_path)
 
+
+        gradle_path = os.environ.get("SERENA_GRADLE_HOME") or gradle_path
+
+        # Prefer system JDK/Java (e.g. from Nix) if provided
+        jre_home_path = os.environ.get("SERENA_JDK_HOME")
+        jre_path = os.environ.get("SERENA_JAVA")
+        if not jre_home_path:
+            jre_home_path = str(PurePath(vscode_java_path, dependency["jre_home_path"]))
+        if not jre_path:
+            jre_path = str(PurePath(vscode_java_path, dependency["jre_path"]))
+        if jre_home_path and not os.path.isabs(jre_home_path):
+            jre_home_path = str(PurePath(jre_home_path))  # normalize
+
         return RuntimeDependencyPaths(
             gradle_path=gradle_path,
             lombok_jar_path=lombok_jar_path,
