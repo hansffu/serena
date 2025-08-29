@@ -114,7 +114,7 @@ class EclipseJDTLS(SolidLanguageServer):
                 "-XX:AdaptiveSizePolicyWeight=90",
                 "-Dsun.zip.disableMemoryMapping=true",
                 "-Djava.lsp.joinOnCompletion=true",
-                "-Xmx5G",
+                "-Xmx8G",
                 "-Xms100m",
                 "-Xlog:disable",
                 "-Dlog.level=ALL",
